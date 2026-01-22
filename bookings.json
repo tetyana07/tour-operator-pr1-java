@@ -1,0 +1,37 @@
+[
+  {
+    "client": {
+      "lastname": "Ivanova",
+      "firstname": "Anna",
+      "email": "anna@gmail.com",
+      "phone": "+380991112233",
+      "id": 277011770602200
+    },
+    "tour": {
+      "name": "Rome Tour",
+      "country": {
+        "name": "Italy",
+        "id": 277011764089400
+      },
+      "hotel": {
+        "name": "Roma Hotel",
+        "stars": 5,
+        "country": {
+          "name": "Italy",
+          "id": 277011764089400
+        },
+        "id": 277011765728199
+      },
+      "guide": {
+        "name": "Mario",
+        "language": "English",
+        "id": 277011767159900
+      },
+      "price": 1200.0,
+      "id": 277011768893799
+    },
+    "date": "2026-01-22",
+    "peopleCont": 2,
+    "id": 277011824088500
+  }
+]
