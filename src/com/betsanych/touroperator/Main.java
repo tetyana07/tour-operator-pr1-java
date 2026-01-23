@@ -1,64 +1,33 @@
 package com.betsanych.touroperator;
 
-import com.betsanych.touroperator.base.LocalDateAdapter;
-import com.betsanych.touroperator.model.Booking;
-import com.betsanych.touroperator.model.Client;
 import com.betsanych.touroperator.model.Country;
 import com.betsanych.touroperator.model.Guide;
 import com.betsanych.touroperator.model.Hotel;
 import com.betsanych.touroperator.model.Tour;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import com.betsanych.touroperator.repository.JsonRepository;
+import com.betsanych.touroperator.repository.TourRepository;
 
 public class Main {
 
     public static void main(String[] args) {
-        Country country = new Country("Italy");
 
-        Hotel hotel = new Hotel("Roma Hotel", 5, country);
+        TourRepository tourRepo = new TourRepository();
 
-        Guide guide = new Guide("Mario", "English");
+        Country italy = new Country("Італія");
+        Hotel hotel = new Hotel("Готель Рома", 4, italy);
+        Guide guide = new Guide("Маріо", "EN");
 
-        Tour tour = new Tour("Rome Tour", country, hotel, guide, 1200.0);
+        Tour tour1 = new Tour("Подорож до Риму", italy, hotel, guide, 1200);
+        Tour tour2 = new Tour("Дешева подорож до Риму", italy, hotel, guide, 800);
 
-        Client client = new Client(
-              "Ivanova",
-              "Anna",
-              "anna@gmail.com",
-              "+380991112233"
-        );
+        tourRepo.save(tour1);
+        tourRepo.save(tour2);
 
-        List<Booking> bookings = new ArrayList<>();
+        JsonRepository<Tour> jsonRepo =
+              new JsonRepository<>("tours.json");
 
-        Booking booking = new Booking(
-              client,
-              tour,
-              LocalDate.now(),
-              2
-        );
+        jsonRepo.saveToFile(tourRepo.findAll());
 
-        bookings.add(booking);
-
-        Gson gson = new GsonBuilder()
-              .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-              .setPrettyPrinting()
-              .create();
-
-        try (FileWriter writer = new FileWriter("bookings.json")) {
-            gson.toJson(bookings, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Файл bookings.json створено");
-
+        System.out.println("Виконано ✔");
     }
 }
-
-
-
-
