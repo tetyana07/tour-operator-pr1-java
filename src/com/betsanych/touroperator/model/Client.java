@@ -8,20 +8,32 @@ public class Client extends Entity {
     private final String firstname;
     private final String email;
     private final String phone;
+    private final String password;
 
-
-    public Client(String lastname, String firstname, String email, String phone) {
-        this.lastname = lastname;
-        this.firstname = firstname;
-        this.email = email;
-        this.phone = phone;
-
+    public Client(
+          String firstname,
+          String lastname,
+          String email,
+          String password
+    ) {
         if (firstname == null || firstname.isBlank()) {
-            throw new IllegalArgumentException("First name is required");
+            throw new IllegalArgumentException("Прізвище є обовязковим");
+        }
+        if (lastname == null || lastname.isBlank()) {
+            throw new IllegalArgumentException("Імя є обовязковим");
         }
         if (email == null || !email.contains("@")) {
-            throw new IllegalArgumentException("Email is invalid");
+            throw new IllegalArgumentException("Email неправильний");
         }
+        if (password == null || password.length() < 6) {
+            throw new IllegalArgumentException("Пароль дуже короткий");
+        }
+
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.phone = null;
     }
 
     public String getLastname() {
@@ -40,4 +52,7 @@ public class Client extends Entity {
         return phone;
     }
 
+    public String getPassword() {
+        return password;
+    }
 }
